@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Paiement</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Paiement Details</h2>
+
+        <!-- Paiement Form -->
+        <form id="paymentForm">
+            <!-- Amount -->
+            <div class="form-group">
+                <label for="amount">Montant:</label>
+                <input type="text" class="form-control" id="amount" placeholder="Enter the amount" required>
+            </div>
+
+            <!-- Paiement Method -->
+            <div class="form-group">
+                <label for="paymentMethod">Paiement Methode:</label>
+                <select class="form-control" id="paymentMethod" required>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+
+            <!-- Card Number (if credit card) -->
+            <div class="form-group" id="cardNumberField">
+                <label for="cardNumber">Numero de Carte:</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number">
+            </div>
+
+            <!-- Expiry Date (if credit card) -->
+            <div class="form-group" id="expiryDateField">
+                <label for="expiryDate">Date D'expiration:</label>
+                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YYYY">
+            </div>
+
+            <!-- CVV (if credit card) -->
+            <div class="form-group" id="cvvField">
+                <label for="cvv">CVV:</label>
+                <input type="text" class="form-control" id="cvv" placeholder="Enter CVV">
+            </div>
+
+            <!-- Statut Paiement -->
+            <div class="form-group">
+                <label for="statutPaiement">Statut Paiement:</label>
+                <input type="text" class="form-control" id="statutPaiement" placeholder="Enter the payment status">
+            </div>
+
+
+            <!-- Submit Button -->
+            <!-- <button type="button" class="btn btn-primary" onclick="submitPayment()">Submit Paiement</button> -->
+            <button type="button" id="submitPaiementBtn" class="btn btn-primary">Submit Paiement</button>
+        </form>
+    </div>
+
+    <!-- Your HTML content above -->
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        // Handle click event on "Ajouter au Panier" button
+        $('#addToCartBtn').click(function(e) {
+            e.preventDefault();
+
+            // Get the product ID from the data attribute
+            var productId = $(this).data('idProd');
+
+            // Navigate to paiement.html
+            window.location.href = '/paiement.html';
+        });
+
+        // Attach click event listener to the "Submit Paiement" button
+        $('#submitPaiementBtn').click(function() {
+            console.log(response);
+            alert('Paiement fait avec success!');
+        // Call the submitPayment() function when the button is clicked
+            submitPayment();
+        });
+    });
+</script>
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS (for handling dynamic fields based on payment method) -->
+    <script src="/src/main/resources/static/paiement.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>E-Shop Fashion</title>
+<!-- Bootstrap CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+/* Optional: Custom CSS for additional styling */
+.product-card {
+    margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <div class="container">
+            <!-- Left-aligned items -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Habits</a></li>
+                <li class="nav-item"><a class="nav-link" href="/produit">Détails</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/panier/add">Panier</a></li>
+                <li class="nav-item"><a class="nav-link" href="/paiement">Paiement</a>
+                </li>
+            </ul>
+
+            <!-- Right-aligned items -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- Shopping cart icon --> <a class="nav-link" href="#"> <i
+                        class="fas fa-shopping-cart"></i> <!-- Font Awesome icon --> <!-- Show number of items in the cart -->
+                        <span id="panierItemCount" class="badge badge-pill badge-danger"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">E-Shop Fashion</h1>
+        <div class="row mt-5">
+            <!-- Loop through each product -->
+            <div class="col-md-4" th:each="product : ${clothProducts}">
+                <div class="card product-card">
+                    <!-- Product image (if available) -->
+                    <img class="card-img-top" src="/dress-red.jpg" alt="Product Image">
+                    <!-- Replace with actual image URL --> <!-- @{/path/to/product-image.jpg} -->
+                    <div class="card-body">
+                        <!-- Product name -->
+                        <h5 class="card-title" th:text="${product.prodNom}"></h5>
+                        <!-- Product description -->
+                        <p class="card-text" th:text="${product.prodDescription}"></p>
+                        <!-- Product category -->
+                        <p class="card-text" th:text="${product.prodCat}"></p>
+                        <!-- Product price -->
+                        <p class="card-text" th:text="'$' + ${product.prodPrix}"></p>
+                        <!-- Optional: Add a button for more details -->
+                        <!-- <a href="#" class="btn btn-primary">View Details</a> -->
+						<a th:href="@{/produit/produit-details/{idProd}(idProd=${product.idProd})}" class="btn btn-primary">Voir Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS (for icons) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Your custom script 
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		// Fetch cart item count using AJAX
+		function fetchPanierItemCount() {
+			fetch('/panier/count/{idUser}') // Adjust endpoint if necessary /panier/count/{idUser}
+				.then(response => response.text())
+				.then(data => {
+					// Update the cart item count in the page
+					document.getElementById('panierItemCount').innerText = data;
+				})
+				.catch(error => {
+					console.error('Error fetching cart item count:', error);
+				});
+		}
+	
+		// Call the function initially to fetch and display the count
+		fetchPanierItemCount();
+	
+		// Optional: Set interval to update count periodically
+		setInterval(fetchPanierItemCount, 5000); // Update count every 5 seconds (adjust as needed)
+		/*]]>*/
+	</script> -->
+	
+</body>
+</html>

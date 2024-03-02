@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produit Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Habits</a></li>
+                <li class="nav-item"><a class="nav-link" href="/produit/produit-details">Détails</a></li>
+                <li class="nav-item"><a class="nav-link" href="/panier/add">Panier</a></li>
+                <li class="nav-item"><a class="nav-link" href="/paiement">Paiement</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center" th:text="${product.prodNom}"></h1>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <img class="img-fluid" th:src="@{/dress-red.jpg}" alt="Product Image">
+            </div>
+            <div class="col-md-6">
+                <p th:text="${product.prodDescription}"></p>
+                <p th:text="${product.prodCat}"></p>
+                <p th:text="'$' + ${product.prodPrix}"></p>
+                <!-- Additional details can be added as needed -->
+                <!-- <a href="#" class="btn btn-primary">Ajouter au Panier</a> -->
+                <!-- <a href="#" class="btn btn-primary" id="addToCartBtn" data-idProd="${product.idProd}">Ajouter au Panier</a> -->
+
+                <!-- Additional details can be added as needed -->
+                <!-- <form action="/panier/add" method="post">
+                    <input type="hidden" name="productId" th:value="${product.idProd}" />
+                    <button type="submit" class="btn btn-primary">Ajouter au Panier</button>
+                </form> -->
+
+                <a href="#" class="btn btn-primary" id="addToCartBtn" th:data-idProd="${product.idProd}">Ajouter au Panier</a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Your HTML content above -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+<script>
+    $(document).ready(function() {
+        // Handle click event on "Ajouter au Panier" button
+        $('#addToCartBtn').click(function(e) {
+            e.preventDefault();
+
+            // Get the product ID from the data attribute
+            var productId = $(this).data('idProd');
+
+            // Send AJAX request to add the product to the cart
+            $.ajax({
+                type: 'POST',
+                url: '/panier/add',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    productId: productId,
+                    panierQnt: 1,
+                    prixTotalPanier: 0,
+                    utilisateur: {
+                        idUser: null,
+                    },
+                }),
+                success: function(response) {
+                    // Handle success, you can redirect or show a confirmation message
+                    console.log(response);
+                    alert('Produit ajouter au panier avec success!');
+                },
+                error: function(error) {
+                    // Handle error
+                    console.error("Error d'ajout de produit au panier:", error);
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome JS (for icons) -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
+
+    
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS (for icons) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
